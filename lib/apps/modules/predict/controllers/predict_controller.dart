@@ -34,19 +34,25 @@ class MediaUploadController extends GetxController {
   }
 
   void uploadImage() async {
-    isLoading.value = true;
+    if (imageFile.value == null) {
+      Get.snackbar("Image Not Found", "Insert image first!");
+    }
     try {
-      if (imageFile.value == null) {
-        Get.snackbar("Image Not Found", "Insert image first!");
+      isLoading.value = true;
+      PredictModel? predictResponse = await PredictRepository.predict(
+        file: imageFile.value!,
+      );
+      if (predictResponse == null) {
+        Get.snackbar("Prediction Failed", "No response from server.");
       } else {
-        PredictModel? predictResponse =
-            await PredictRepository.predict(file: imageFile.value!);
         Get.toNamed(Routes.DETAIL, arguments: predictResponse);
       }
     } catch (e) {
       if (kDebugMode) {
         log(e.toString(), name: "MEDIA UPLOAD CONTROLLER");
       }
+    } finally {
+      isLoading.value = false;
     }
   }
 }

@@ -32,7 +32,7 @@ class PlantRepositoryById {
       final token = await Session.getToken();
       dio.options.baseUrl = ApiEndpoint.baseUrl;
       dio.options.headers = {"Authorization": "Bearer $token"};
-      final response = await dio.get('${ApiEndpoint.plantsId}$id');
+      final response = await dio.get('${ApiEndpoint.plantById}$id');
       if (response.statusCode == 200) {
         return PlantById.fromJson(response.data);
       } else {

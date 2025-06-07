@@ -19,6 +19,7 @@ class PredictRepository {
         "Authorization": "Bearer $token"
       };
       dio.options.baseUrl = ApiEndpoint.baseUrl;
+      dio.options.connectTimeout = const Duration(seconds: 10);
       String filename = file.path.split('/').last;
 
       FormData formData = FormData.fromMap({

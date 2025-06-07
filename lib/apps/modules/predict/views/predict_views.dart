@@ -40,45 +40,64 @@ class MediaUploadPage extends StatelessWidget {
     return Obx(() {
       final file = controller.imageFile.value;
       return Container(
-        height: 250,
-        width: double.infinity,
-        decoration: BoxDecoration(
-          border: Border.all(color: Colors.green),
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: file != null
-            ? Stack(
-                children: [
-                  Image.file(file, width: double.infinity, fit: BoxFit.cover),
-                  Positioned(
-                    top: 8,
-                    right: 8,
-                    child: IconButton(
-                      icon: const Icon(Icons.close, color: Colors.red),
-                      onPressed: controller.clearImage,
+          height: 250,
+          width: double.infinity,
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.green),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Stack(
+            children: [
+              file != null
+                  ? Stack(
+                      children: [
+                        Image.file(file,
+                            width: double.infinity, fit: BoxFit.cover),
+                        Positioned(
+                          top: 8,
+                          right: 8,
+                          child: IconButton(
+                            icon: const Icon(Icons.close, color: Colors.red),
+                            onPressed: controller.clearImage,
+                          ),
+                        ),
+                      ],
+                    )
+                  : Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Icon(Icons.folder_open,
+                              size: 40, color: Colors.green),
+                          const SizedBox(height: 10),
+                          ElevatedButton.icon(
+                            onPressed: () =>
+                                _showImageSourceDialog(Get.context!),
+                            icon: const Icon(Icons.upload_file),
+                            label: const Text("Upload Image"),
+                          ),
+                          const SizedBox(height: 10),
+                          const Text("Max 10 MB files are allowed"),
+                          const Text(
+                              "Only support .jpg, .jpeg, and .png files"),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
-              )
-            : Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Icon(Icons.folder_open,
-                        size: 40, color: Colors.green),
-                    const SizedBox(height: 10),
-                    ElevatedButton.icon(
-                      onPressed: () => _showImageSourceDialog(Get.context!),
-                      icon: const Icon(Icons.upload_file),
-                      label: const Text("Upload Image"),
-                    ),
-                    const SizedBox(height: 10),
-                    const Text("Max 10 MB files are allowed"),
-                    const Text("Only support .jpg, .jpeg, and .png files"),
-                  ],
-                ),
+              // Loading overlay
+              Obx(
+                () => controller.isLoading.value
+                    ? Positioned.fill(
+                        child: Container(
+                          color: Colors.black.withOpacity(0.5),
+                          child: const Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                        ),
+                      )
+                    : const SizedBox.shrink(),
               ),
-      );
+            ],
+          ));
     });
   }
 

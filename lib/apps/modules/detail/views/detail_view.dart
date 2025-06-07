@@ -1,31 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
+import 'package:mobile_hydromelon/apps/data/remote/api_endpoint.dart';
 
-import '../../../constant/size_config.dart';
 import '../../../routes/app_pages.dart';
 import '../../shared/widget/logoBottom.dart';
 import '../controllers/detail_controller.dart';
 import 'widget/barIndicator.dart';
 
 class DetailView extends GetView<DetailController> {
-  const DetailView({Key? key}) : super(key: key);
+  const DetailView({super.key});
+
   @override
   Widget build(BuildContext context) {
-    final SizeConfig sizeConfig = SizeConfig(context);
+    final args = controller.arguments.value;
     return Scaffold(
       appBar: AppBar(
         actions: [
           InkWell(
             onTap: () {
-              Get.toNamed(Routes.HISTORY,
-                  arguments: {'id': controller.arguments.value.id});
+              Get.toNamed(Routes.HISTORY, arguments: {'id': args.id});
             },
             child: const Icon(Icons.history),
           ),
-          SizedBox(
-            width: sizeConfig.getProportionateScreenWidth(20),
-          ),
+          SizedBox(width: 20.w),
         ],
         title: const Text(
           'Detail Plant',
@@ -33,108 +32,87 @@ class DetailView extends GetView<DetailController> {
         ),
         centerTitle: true,
       ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: sizeConfig.getProportionateScreenWidth(25),
-          vertical: sizeConfig.getProportionateScreenHeight(20),
-        ),
-        child: Obx(
-          () => Column(
+      body: Center(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 25.w, vertical: 20.h),
+          child: Column(
             children: [
-              SizedBox(height: sizeConfig.getProportionateScreenHeight(50)),
-              Center(
-                child: Image.asset(
-                  'assets/img/lettuceDetail.png',
-                  width: sizeConfig.getProportionateScreenWidth(250),
-                ),
+              SizedBox(height: 50.h),
+              Image.network(
+                '${ApiEndpoint.domain}${args.imageUrl}',
+                fit: BoxFit.cover,
+                width: 250.w,
+                loadingBuilder: (context, child, loadingProgress) {
+                  if (loadingProgress == null) return child;
+                  return const Center(child: CircularProgressIndicator());
+                },
+                errorBuilder: (context, error, stackTrace) {
+                  return const Center(
+                    child:
+                        Icon(Icons.broken_image, color: Colors.grey, size: 60),
+                  );
+                },
               ),
-              SizedBox(height: sizeConfig.getProportionateScreenHeight(60)),
+              SizedBox(height: 70.h),
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Column(
                     children: [
-                      const Text(
-                        'Pixel',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      SizedBox(
-                          height: sizeConfig.getProportionateScreenHeight(15)),
+                      SizedBox(height: 15.h),
                       BarIndicator(
-                        value: 1000,
-                        percent: 30,
-                        satuan: 'px',
-                        barColor: Colors.blue,
-                      ),
-                    ],
-                  ),
-                  const Spacer(),
-                  Column(
-                    children: [
-                      const Text(
-                        'Weight',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      SizedBox(
-                          height: sizeConfig.getProportionateScreenHeight(15)),
-                      BarIndicator(
-                        value: 16,
-                        percent: 40,
-                        satuan: 'g',
+                        value: double.parse("${args.score}"),
+                        percent: double.parse("${args.score}") * 100,
+                        satuan: '',
                         barColor: Colors.green[300],
                       ),
                     ],
                   ),
-                ],
-              ),
-              SizedBox(height: sizeConfig.getProportionateScreenHeight(40)),
-              Row(
-                children: [
+                  SizedBox(width: 30.w),
                   Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        'plant id',
-                        style: TextStyle(fontWeight: FontWeight.w500),
+                      Row(
+                        children: [
+                          const SizedBox(width: 80, child: Text("Prediksi")),
+                          Text(": ${args.prediction}"),
+                        ],
                       ),
-                      SizedBox(
-                          height: sizeConfig.getProportionateScreenHeight(10)),
-                      Text('${controller.arguments.value.id}')
+                      SizedBox(height: 8.h),
+                      Row(
+                        children: [
+                          const SizedBox(width: 80, child: Text("Score")),
+                          Text(": ${args.score}"),
+                        ],
+                      ),
+                      SizedBox(height: 8.h),
+                      const Row(
+                        children: [
+                          SizedBox(width: 80, child: Text("Type")),
+                          Text(": Melon"),
+                        ],
+                      ),
+                      SizedBox(height: 8.h),
+                      Row(
+                        children: [
+                          const SizedBox(width: 80, child: Text("Date")),
+                          Text(
+                              ": ${DateTime.parse("${args.datetime}").toLocal().toString().substring(0, 10)}"),
+                        ],
+                      ),
+                      SizedBox(height: 8.h),
+                      Row(
+                        children: [
+                          const SizedBox(width: 80, child: Text("Jam")),
+                          Text(
+                              ": ${DateTime.parse("${args.datetime}").toLocal().toString().substring(11, 19)}"),
+                        ],
+                      ),
                     ],
                   ),
-                  const Spacer(),
-                  Column(
-                    children: [
-                      const Text(
-                        'prediction',
-                        style: TextStyle(fontWeight: FontWeight.w500),
-                      ),
-                      SizedBox(
-                          height: sizeConfig.getProportionateScreenHeight(10)),
-                      Text(controller.arguments.value.prediction.toString())
-                    ],
-                  ),
-                  const Spacer(),
-                  Column(
-                    children: [
-                      const Text(
-                        'score',
-                        style: TextStyle(fontWeight: FontWeight.w500),
-                      ),
-                      SizedBox(
-                          height: sizeConfig.getProportionateScreenHeight(10)),
-                      Text(controller.arguments.value.score.toString()),
-                    ],
-                  )
                 ],
               ),
               const Spacer(),
-              const LogoBottom()
+              const LogoBottom(),
             ],
           ),
         ),

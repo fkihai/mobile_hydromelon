@@ -1,11 +1,19 @@
 class ApiEndpoint {
-  static const baseUrl = 'http://192.168.101.9:8000/api';
-  static const singIn = '/token/';
+  static const String domain = 'http://192.168.101.9:8000';
+  static const String baseUrl = '$domain/api';
 
-  static const predict = '/predict/';
+  // Auth
+  static const String signIn = '/token/';
+  static const String signUp = '/signUp';
 
-  static const singUp = '/singUp';
-  static const plants = '/plants';
-  static const plantsId = '/plants/';
-  static const history = '/history/';
+  // Prediction
+  static const String predict = '/predict/';
+
+  // Plants
+  static const String plants = '/plants';
+  static const String plantById =
+      '/plants/'; // untuk detail / update / delete: /plants/{id}
+
+  // History
+  static const String history = '/history/';
 }

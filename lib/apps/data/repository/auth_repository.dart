@@ -22,7 +22,7 @@ class AuthRepositroy {
         "email": email,
         "password": password,
       };
-      final response = await dio.post(ApiEndpoint.singIn, data: params);
+      final response = await dio.post(ApiEndpoint.signIn, data: params);
       if (response.statusCode == 200) {
         AuthModel authData = AuthModel.fromJson(response.data);
         if (kDebugMode) {
