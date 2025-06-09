@@ -19,7 +19,7 @@ class BarIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CircularPercentIndicator(
-      radius: 60.r,
+      radius: 50.r,
       startAngle: 180,
       animation: true,
       lineWidth: 10,

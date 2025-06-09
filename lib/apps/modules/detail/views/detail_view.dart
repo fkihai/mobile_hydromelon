@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
+import 'package:mobile_hydromelon/apps/constant/constant.dart';
 import 'package:mobile_hydromelon/apps/data/remote/api_endpoint.dart';
 
 import '../../../routes/app_pages.dart';
@@ -17,17 +19,17 @@ class DetailView extends GetView<DetailController> {
     final args = controller.arguments.value;
     return Scaffold(
       appBar: AppBar(
-        actions: [
-          InkWell(
+        backgroundColor: Colors.greenAccent,
+        leading: InkWell(
             onTap: () {
-              Get.toNamed(Routes.HISTORY, arguments: {'id': args.id});
+              Get.offAndToNamed(Routes.HOME);
             },
-            child: const Icon(Icons.history),
-          ),
-          SizedBox(width: 20.w),
-        ],
+            child: const Icon(
+              Icons.home,
+              color: Colors.black,
+            )),
         title: const Text(
-          'Detail Plant',
+          'Result',
           style: TextStyle(fontSize: 20, color: Colors.black),
         ),
         centerTitle: true,
@@ -40,8 +42,9 @@ class DetailView extends GetView<DetailController> {
               SizedBox(height: 50.h),
               Image.network(
                 '${ApiEndpoint.domain}${args.imageUrl}',
-                fit: BoxFit.cover,
-                width: 250.w,
+                fit: BoxFit.contain,
+                width: double.infinity,
+                height: 200.h,
                 loadingBuilder: (context, child, loadingProgress) {
                   if (loadingProgress == null) return child;
                   return const Center(child: CircularProgressIndicator());
@@ -53,8 +56,8 @@ class DetailView extends GetView<DetailController> {
                   );
                 },
               ),
-              SizedBox(height: 70.h),
-              Row(
+              SizedBox(height: 10.h),
+              Column(
                 children: [
                   Column(
                     children: [
@@ -67,14 +70,20 @@ class DetailView extends GetView<DetailController> {
                       ),
                     ],
                   ),
-                  SizedBox(width: 30.w),
+                  SizedBox(
+                    height: 30.h,
+                  ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
                         children: [
                           const SizedBox(width: 80, child: Text("Prediksi")),
-                          Text(": ${args.prediction}"),
+                          Text(
+                            ": ${args.prediction}",
+                            softWrap: true,
+                            overflow: TextOverflow.visible,
+                          ),
                         ],
                       ),
                       SizedBox(height: 8.h),

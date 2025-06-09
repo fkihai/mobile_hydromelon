@@ -32,7 +32,7 @@ class PredictRepository {
       if (response.statusCode == 200) {
         PredictModel predictModel = PredictModel.fromJson(data);
         if (kDebugMode) {
-          log(data.toString(), name: 'PRDICT REPOSITORY');
+          log(data.toString(), name: 'PREDICT REPOSITORY');
         }
         return predictModel;
       }

@@ -52,7 +52,7 @@ class MediaUploadPage extends StatelessWidget {
                   ? Stack(
                       children: [
                         Image.file(file,
-                            width: double.infinity, fit: BoxFit.cover),
+                            width: double.infinity, fit: BoxFit.fill),
                         Positioned(
                           top: 8,
                           right: 8,

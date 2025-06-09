@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'dart:developer';
 import '../local/session.dart';
 import '../models/plantById_model.dart';
@@ -19,7 +20,9 @@ class PlantRepository {
       }
       return null;
     } catch (e) {
-      log(e.toString(), name: 'GET PLANTS');
+      if (kDebugMode) {
+        log(e.toString(), name: 'GET PLANTS');
+      }
     }
     return null;
   }

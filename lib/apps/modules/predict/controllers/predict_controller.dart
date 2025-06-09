@@ -43,8 +43,9 @@ class MediaUploadController extends GetxController {
         file: imageFile.value!,
       );
       if (predictResponse == null) {
-        Get.snackbar("Prediction Failed", "No response from server.");
+        Get.snackbar("Prediction Failed", "Check Your Image.");
       } else {
+        clearImage();
         Get.toNamed(Routes.DETAIL, arguments: predictResponse);
       }
     } catch (e) {
@@ -54,5 +55,11 @@ class MediaUploadController extends GetxController {
     } finally {
       isLoading.value = false;
     }
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+    clearImage();
   }
 }
