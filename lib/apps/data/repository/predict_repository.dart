@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:mobile_hydromelon/apps/data/remote/api_endpoint.dart';
 
@@ -18,14 +19,11 @@ class PredictRepository {
         'X-API-KEY': dotenv.get("API_SECRET"),
         "Authorization": "Bearer $token"
       };
-      final response = await dio.post(ApiEndpoint.history);
-      List<Map<String, dynamic>> data = response.data['data'];
-      if (response.statusCode == 200) {
+      final response = await dio.get(ApiEndpoint.predict);
+      if (response.statusCode == 200 && response.data != null) {
+        List<dynamic> data = response.data['data'];
         List<PredictModel> history =
             data.map((e) => PredictModel.fromJson(e)).toList();
-        if (kDebugMode) {
-          print(history);
-        }
         return history;
       }
     } catch (e) {

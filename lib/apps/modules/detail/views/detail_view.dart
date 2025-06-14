@@ -162,57 +162,6 @@ class DetailView extends GetView<DetailController> {
                               ),
                             ],
                           ),
-                          Row(
-                            children: [
-                              SizedBox(
-                                width: 80,
-                                child: CustomText(
-                                  title: 'Time',
-                                  fontSize: 12.sp,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              CustomText(
-                                title:
-                                    " : ${DateTime.parse("${args.datetime}").toLocal().toString().substring(11, 19)}",
-                                fontSize: 12.sp,
-                              ),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              SizedBox(
-                                width: 80,
-                                child: CustomText(
-                                  title: 'Time',
-                                  fontSize: 12.sp,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              CustomText(
-                                title:
-                                    " : ${DateTime.parse("${args.datetime}").toLocal().toString().substring(11, 19)}",
-                                fontSize: 12.sp,
-                              ),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              SizedBox(
-                                width: 80,
-                                child: CustomText(
-                                  title: 'Time',
-                                  fontSize: 12.sp,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              CustomText(
-                                title:
-                                    " : ${DateTime.parse("${args.datetime}").toLocal().toString().substring(11, 19)}",
-                                fontSize: 12.sp,
-                              ),
-                            ],
-                          ),
                         ],
                       ),
                     ),

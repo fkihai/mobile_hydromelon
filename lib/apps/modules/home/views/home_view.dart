@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:mobile_hydromelon/apps/modules/history/views/history_view.dart';
+import 'package:mobile_hydromelon/apps/modules/informations/views/informations_view.dart';
 import 'package:mobile_hydromelon/apps/modules/predict/views/predict_views.dart';
 import '../controllers/home_controller.dart';
 
@@ -20,7 +21,7 @@ class HomeView extends StatelessWidget {
               children: [
                 PredictPage(),
                 const HistoryView(),
-                PredictPage(),
+                const InformationsView(),
               ],
             ),
           ),

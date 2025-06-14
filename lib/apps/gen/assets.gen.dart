@@ -22,6 +22,10 @@ class $AssetsImgGen {
   /// File path: assets/img/logo.png
   AssetGenImage get logo => const AssetGenImage('assets/img/logo.png');
 
+  /// File path: assets/img/melon_icon.png
+  AssetGenImage get melonIcon =>
+      const AssetGenImage('assets/img/melon_icon.png');
+
   /// File path: assets/img/splash.png
   AssetGenImage get splash => const AssetGenImage('assets/img/splash.png');
 
@@ -31,7 +35,7 @@ class $AssetsImgGen {
 
   /// List of all assets
   List<AssetGenImage> get values =>
-      [lettuce, lettuceDetail, logo, splash, uploadIcon];
+      [lettuce, lettuceDetail, logo, melonIcon, splash, uploadIcon];
 }
 
 class Assets {

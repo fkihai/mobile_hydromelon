@@ -4,16 +4,7 @@ class ApiEndpoint {
 
   // Auth
   static const String signIn = '/token/';
-  static const String signUp = '/signUp';
 
-  // Prediction
+  // Prediction (post and get)
   static const String predict = '/predict/';
-
-  // Plants
-  static const String plants = '/plants';
-  static const String plantById =
-      '/plants/'; // untuk detail / update / delete: /plants/{id}
-
-  // History
-  static const String history = '/history/';
 }

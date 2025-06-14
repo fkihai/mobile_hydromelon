@@ -1,16 +1,23 @@
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:mobile_hydromelon/apps/data/models/predict_model.dart';
 import 'package:mobile_hydromelon/apps/data/repository/predict_repository.dart';
 
 class HistoryController extends GetxController {
   final isLoading = false.obs;
+  final data = <PredictModel>[].obs;
 
-  Future<void> getHistory() async {
+  Future<void> fetchData() async {
     try {
       isLoading.value = true;
-      List<PredictModel>? history = await PredictRepository.history();
-      isLoading.value = false;
+      final response = await PredictRepository.history();
+      data.assignAll(response!);
     } catch (e) {
+      if (kDebugMode) {
+        print("❌ Error fetching data: $e");
+      }
+      isLoading.value = false;
+    } finally {
       isLoading.value = false;
     }
   }
@@ -29,10 +36,4 @@ class HistoryController extends GetxController {
   //     // log(dataHistory[1].attributes!.name.toString(), name: 'HISTORY');
   //   }
   // }
-
-  @override
-  void onInit() {
-    getHistory();
-    super.onInit();
-  }
 }
