@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../constant/size_config.dart';
-import '../../shared/widget/logoBottom.dart';
+import '../../../shared/widget/logoBottom.dart';
 import '../controllers/profile_controller.dart';
 
 class ProfileView extends GetView<ProfileController> {

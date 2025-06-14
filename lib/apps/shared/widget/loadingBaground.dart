@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../constant/size_config.dart';
+import '../../constant/size_config.dart';
 
 class LoadingBaground extends StatelessWidget {
   const LoadingBaground({super.key});

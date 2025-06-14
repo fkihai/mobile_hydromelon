@@ -1,11 +1,19 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import '../../controllers/singin_controller.dart';
+import '../../modules/singIn/controllers/singin_controller.dart';
 
-class ButtonLogin extends GetView<SinginController> {
-  const ButtonLogin({super.key, required this.title, this.onPressed});
+class CustomButton extends GetView<SinginController> {
+  const CustomButton({
+    super.key,
+    required this.title,
+    this.onPressed,
+    this.enabled = true,
+    this.color = Colors.green,
+  });
   final Future<void> Function()? onPressed;
   final String title;
+  final bool enabled;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +21,7 @@ class ButtonLogin extends GetView<SinginController> {
       width: double.infinity,
       height: 45,
       decoration: BoxDecoration(
-        color: Colors.green[300],
+        color: enabled ? color : Colors.grey.shade600,
         shape: BoxShape.rectangle,
         borderRadius: BorderRadius.circular(8),
       ),

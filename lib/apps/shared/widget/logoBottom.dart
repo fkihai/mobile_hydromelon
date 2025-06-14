@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_hydromelon/apps/gen/assets.gen.dart';
 
-import '../../../constant/size_config.dart';
+import '../../constant/size_config.dart';
 
 class LogoBottom extends StatelessWidget {
   const LogoBottom({super.key});

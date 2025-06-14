@@ -12,44 +12,42 @@ import '../modules/profile/bindings/profile_binding.dart';
 import '../modules/profile/views/profile_view.dart';
 import '../modules/singIn/bindings/singin_binding.dart';
 import '../modules/singIn/views/singin_view.dart';
-import '../modules/singUp/bindings/singup_binding.dart';
-import '../modules/singUp/views/singup_view.dart';
 
 part 'app_routes.dart';
 
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.SINGIN;
+  static const initial = Routes.singin;
 
   static final routes = [
     GetPage(
-      name: _Paths.HOME,
-      page: () => MediaUploadPage(),
-      binding: PredictBindings(),
+      name: _Paths.home,
+      page: () => const HomeView(),
+      binding: HomeBinding(),
     ),
     GetPage(
-      name: _Paths.SINGIN,
+      name: _Paths.signIn,
       page: () => const SinginView(),
       binding: SinginBinding(),
     ),
     GetPage(
-      name: _Paths.SINGUP,
-      page: () => const SingupView(),
-      binding: SingupBinding(),
+      name: _Paths.predict,
+      page: () => PredictPage(),
+      binding: PredictBindings(),
     ),
     GetPage(
-      name: _Paths.DETAIL,
+      name: _Paths.detail,
       page: () => const DetailView(),
       binding: DetailBinding(),
     ),
     GetPage(
-      name: _Paths.HISTORY,
+      name: _Paths.history,
       page: () => const HistoryView(),
       binding: HistoryBinding(),
     ),
     GetPage(
-      name: _Paths.PROFILE,
+      name: _Paths.profile,
       page: () => const ProfileView(),
       binding: ProfileBinding(),
     ),

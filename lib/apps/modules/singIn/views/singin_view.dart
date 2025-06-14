@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../gen/assets.gen.dart';
-import '../../shared/widget/loadingBaground.dart';
-import '../../shared/widget/logoBottom.dart';
+import '../../../shared/widget/loadingBaground.dart';
+import '../../../shared/widget/logoBottom.dart';
 import '../controllers/singin_controller.dart';
-import 'widget/butonLogin.dart';
+import '../../../shared/widget/customButton.dart';
 import 'widget/emailField.dart';
 import 'widget/passwordField.dart';
 
@@ -54,7 +54,7 @@ class SinginView extends GetView<SinginController> {
                     SizedBox(height: 20.h),
                     const PasswordField(),
                     SizedBox(height: 70.h),
-                    ButtonLogin(
+                    CustomButton(
                       title: 'login',
                       onPressed: () async {
                         controller.doLogin();

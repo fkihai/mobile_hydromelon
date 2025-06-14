@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:mobile_hydromelon/apps/modules/singIn/views/widget/butonLogin.dart';
+import 'package:mobile_hydromelon/apps/gen/assets.gen.dart';
+import 'package:mobile_hydromelon/apps/shared/widget/custom_text.dart';
+import 'package:mobile_hydromelon/apps/shared/widget/customButton.dart';
 import '../controllers/predict_controller.dart';
 
-class MediaUploadPage extends StatelessWidget {
-  final MediaUploadController controller = Get.put(MediaUploadController());
-  MediaUploadPage({super.key});
+class PredictPage extends StatelessWidget {
+  final PredictController controller = Get.put(PredictController());
+  PredictPage({super.key});
 
   void _showImageSourceDialog(BuildContext context) {
     Get.bottomSheet(
@@ -40,19 +44,26 @@ class MediaUploadPage extends StatelessWidget {
     return Obx(() {
       final file = controller.imageFile.value;
       return Container(
-          height: 250,
+          height: 250.h,
           width: double.infinity,
           decoration: BoxDecoration(
             border: Border.all(color: Colors.green),
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(12.r),
           ),
           child: Stack(
             children: [
               file != null
                   ? Stack(
                       children: [
-                        Image.file(file,
-                            width: double.infinity, fit: BoxFit.fill),
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(12.r),
+                          child: Image.file(
+                            file,
+                            width: double.infinity,
+                            height: 250.h,
+                            fit: BoxFit.fill,
+                          ),
+                        ),
                         Positioned(
                           top: 8,
                           right: 8,
@@ -64,23 +75,51 @@ class MediaUploadPage extends StatelessWidget {
                       ],
                     )
                   : Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Icon(Icons.folder_open,
-                              size: 40, color: Colors.green),
-                          const SizedBox(height: 10),
-                          ElevatedButton.icon(
-                            onPressed: () =>
-                                _showImageSourceDialog(Get.context!),
-                            icon: const Icon(Icons.upload_file),
-                            label: const Text("Upload Image"),
-                          ),
-                          const SizedBox(height: 10),
-                          const Text("Max 10 MB files are allowed"),
-                          const Text(
-                              "Only support .jpg, .jpeg, and .png files"),
-                        ],
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(vertical: 30.h),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              Assets.img.uploadIcon.path,
+                              width: 40.w,
+                            ),
+                            const SizedBox(height: 20),
+                            Container(
+                              height: 40.h,
+                              width: 160.w,
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.rectangle,
+                                  border: Border.all(
+                                    color: Colors.green.shade500,
+                                  ),
+                                  borderRadius: BorderRadius.circular(10.r)),
+                              child: TextButton(
+                                onPressed: () =>
+                                    _showImageSourceDialog(Get.context!),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.upload_file,
+                                      color: Colors.green.shade500,
+                                    ),
+                                    SizedBox(width: 10.w),
+                                    Text(
+                                      "Upload Image",
+                                      style: TextStyle(
+                                          color: Colors.green.shade500),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            const Text("Max 10 MB files are allowed"),
+                            const Text(
+                                "Only support .jpg, .jpeg, and .png files"),
+                          ],
+                        ),
                       ),
                     ),
               // Loading overlay
@@ -104,19 +143,35 @@ class MediaUploadPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Media Upload')),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(16.0.dm),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            CustomText(
+              title: 'Predict',
+              fontSize: 25,
+              fontWeight: FontWeight.bold,
+            ),
+            CustomText(
+              title: 'Melon ripeness prediction',
+              fontSize: 14,
+              color: Colors.grey.shade800,
+            ),
+            SizedBox(height: 40.h),
             _buildUploadBox(),
             const Spacer(),
-            ButtonLogin(
-              title: 'predict',
-              onPressed: () async {
-                controller.uploadImage();
-              },
+            Obx(
+              () => CustomButton(
+                title: 'predict',
+                onPressed: () async {
+                  controller.uploadImage();
+                },
+                color: Colors.green.shade500,
+                enabled: controller.imageFile.value != null ? true : false,
+              ),
             ),
+            SizedBox(height: 10.h)
           ],
         ),
       ),

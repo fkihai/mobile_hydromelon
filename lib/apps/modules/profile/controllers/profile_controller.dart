@@ -24,7 +24,7 @@ class ProfileController extends GetxController {
 
   Future doLogout() async {
     await Session.clearSession();
-    Get.offAllNamed(Routes.SINGIN);
+    Get.offAllNamed(Routes.singin);
   }
 
   @override

@@ -1,18 +1,15 @@
 import 'dart:developer';
-import 'dart:ffi';
-
+import 'dart:io';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'dart:io';
 import 'package:image_picker/image_picker.dart';
-import 'package:mobile_hydromelon/apps/data/models/predict_model.dart';
-import 'package:mobile_hydromelon/apps/data/repository/predict_repository.dart';
-
+import '../../../data/models/predict_model.dart';
+import '../../../data/repository/predict_repository.dart';
 import '../../../routes/app_pages.dart';
+import '../../../shared/widget/snackbar.dart';
 
-class MediaUploadController extends GetxController {
+class PredictController extends GetxController {
   final Rx<File?> imageFile = Rx<File?>(null);
   final ImagePicker picker = ImagePicker();
   final isLoading = false.obs;
@@ -35,7 +32,7 @@ class MediaUploadController extends GetxController {
 
   void uploadImage() async {
     if (imageFile.value == null) {
-      Get.snackbar("Image Not Found", "Insert image first!");
+      snackbar(title: "Image Not Found", message: "Insert image first!");
     }
     try {
       isLoading.value = true;
@@ -43,10 +40,10 @@ class MediaUploadController extends GetxController {
         file: imageFile.value!,
       );
       if (predictResponse == null) {
-        Get.snackbar("Prediction Failed", "Check Your Image.");
+        snackbar(title: "Prediction Failed", message: "Check Your Image.");
       } else {
         clearImage();
-        Get.toNamed(Routes.DETAIL, arguments: predictResponse);
+        Get.toNamed(Routes.detail, arguments: predictResponse);
       }
     } catch (e) {
       if (kDebugMode) {

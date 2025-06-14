@@ -29,9 +29,12 @@ class SinginController extends GetxController {
           token: "${loginResponse.token}",
           refreshToken: "${loginResponse.refreshToken}",
         );
-        Get.offAndToNamed(Routes.HOME);
+        Get.offAndToNamed(Routes.home);
         isLoading.value = false;
         isloginFailed.value = false;
+      } else {
+        isLoading.value = false;
+        isloginFailed.value = true;
       }
     } catch (e) {
       isLoading.value = false;
@@ -41,7 +44,7 @@ class SinginController extends GetxController {
 
   Future isLogin() async {
     if (await Session.checkLogin()) {
-      Get.offAndToNamed(Routes.HOME);
+      Get.offAndToNamed(Routes.home);
     }
   }
 }

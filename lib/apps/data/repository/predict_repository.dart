@@ -9,6 +9,31 @@ import '../local/session.dart';
 import '../models/predict_model.dart';
 
 class PredictRepository {
+  static Future<List<PredictModel>?> history() async {
+    try {
+      final dio = Dio();
+      final token = await Session.getToken();
+      dio.options.baseUrl = ApiEndpoint.baseUrl;
+      dio.options.headers = {
+        'X-API-KEY': dotenv.get("API_SECRET"),
+        "Authorization": "Bearer $token"
+      };
+      final response = await dio.post(ApiEndpoint.history);
+      List<Map<String, dynamic>> data = response.data['data'];
+      if (response.statusCode == 200) {
+        List<PredictModel> history =
+            data.map((e) => PredictModel.fromJson(e)).toList();
+        if (kDebugMode) {
+          print(history);
+        }
+        return history;
+      }
+    } catch (e) {
+      log(e.toString(), name: 'PREDICT REPOSITORY ');
+    }
+    return null;
+  }
+
   static Future<PredictModel?> predict({required File file}) async {
     try {
       final dio = Dio();
