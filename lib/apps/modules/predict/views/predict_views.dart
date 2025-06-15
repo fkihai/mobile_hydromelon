@@ -143,26 +143,42 @@ class PredictPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: EdgeInsets.all(16.0.dm),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            CustomText(
-              title: 'Predict',
-              fontSize: 25,
-              fontWeight: FontWeight.bold,
-            ),
-            CustomText(
-              title: 'Melon ripeness prediction',
-              fontSize: 14,
-              color: Colors.grey.shade800,
-            ),
-            SizedBox(height: 40.h),
-            _buildUploadBox(),
-            const Spacer(),
-            Obx(
-              () => CustomButton(
+      body: Obx(
+        () => Padding(
+          padding: EdgeInsets.all(16.0.dm),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              CustomText(
+                title: 'Predict',
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+              ),
+              CustomText(
+                title: 'Melon ripeness prediction',
+                fontSize: 14,
+                color: Colors.grey.shade800,
+              ),
+              SizedBox(height: 40.h),
+              _buildUploadBox(),
+              SizedBox(height: 20.h),
+              controller.imageFile.value != null
+                  ? Row(
+                      children: [
+                        const Icon(
+                          Icons.check_circle,
+                          color: Colors.green,
+                        ),
+                        CustomText(
+                          title: ' Load Image Successfully',
+                          color: Colors.green,
+                          fontWeight: FontWeight.bold,
+                        )
+                      ],
+                    )
+                  : Container(),
+              const Spacer(),
+              CustomButton(
                 title: 'predict',
                 onPressed: () async {
                   controller.uploadImage();
@@ -170,9 +186,9 @@ class PredictPage extends StatelessWidget {
                 color: Colors.green.shade500,
                 enabled: controller.imageFile.value != null ? true : false,
               ),
-            ),
-            SizedBox(height: 10.h)
-          ],
+              SizedBox(height: 10.h)
+            ],
+          ),
         ),
       ),
     );

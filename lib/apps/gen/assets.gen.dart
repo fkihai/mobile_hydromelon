@@ -12,6 +12,10 @@ import 'package:flutter/widgets.dart';
 class $AssetsImgGen {
   const $AssetsImgGen();
 
+  /// File path: assets/img/history_not_found.png
+  AssetGenImage get historyNotFound =>
+      const AssetGenImage('assets/img/history_not_found.png');
+
   /// File path: assets/img/lettuce.png
   AssetGenImage get lettuce => const AssetGenImage('assets/img/lettuce.png');
 
@@ -34,8 +38,15 @@ class $AssetsImgGen {
       const AssetGenImage('assets/img/upload_icon.png');
 
   /// List of all assets
-  List<AssetGenImage> get values =>
-      [lettuce, lettuceDetail, logo, melonIcon, splash, uploadIcon];
+  List<AssetGenImage> get values => [
+        historyNotFound,
+        lettuce,
+        lettuceDetail,
+        logo,
+        melonIcon,
+        splash,
+        uploadIcon
+      ];
 }
 
 class Assets {

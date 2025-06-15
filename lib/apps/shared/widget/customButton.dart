@@ -10,7 +10,7 @@ class CustomButton extends GetView<SinginController> {
     this.enabled = true,
     this.color = Colors.green,
   });
-  final Future<void> Function()? onPressed;
+  final void Function()? onPressed;
   final String title;
   final bool enabled;
   final Color color;
